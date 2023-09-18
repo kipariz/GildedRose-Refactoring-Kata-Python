@@ -30,6 +30,8 @@ class GildedRoseTest(unittest.TestCase):
         [1, 0, 1, 2],
         [0, -1, 1, 3],
         [-1, -2, 1, 3],
+        [-1, -2, 49, 50],
+        [-1, -2, 50, 50],
     ])
     def test_aged_brie_quality_rise(self, sell_in_init, sell_in_expected, quality_init, quality_expected):
         items = [Item("Aged Brie", sell_in_init, quality_init)]
