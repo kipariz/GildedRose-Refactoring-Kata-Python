@@ -26,9 +26,9 @@ class GildedRose(object):
                         new_quality = new_quality - 1
 
             if item.name != "Sulfuras, Hand of Ragnaros":
-                item.sell_in = item.sell_in - 1
-                
-            if item.sell_in < 0:
+                new_sell_in = new_sell_in - 1
+
+            if new_sell_in < 0:
                 if item.name == "Aged Brie":
                     if item.quality < 50:
                         new_quality = new_quality + 1
@@ -41,6 +41,7 @@ class GildedRose(object):
                                 new_quality = new_quality - 1
         
         item.quality = new_quality
+        item.sell_in = new_sell_in
 
 
 class Item:
