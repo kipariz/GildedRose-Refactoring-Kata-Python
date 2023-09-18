@@ -10,21 +10,21 @@ class GildedRoseTest(unittest.TestCase):
         items = [Item("foo", 2, 2)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
-        self.assertEquals(1, items[0].sell_in)
-        self.assertEquals(1, items[0].quality)
+        self.assertEqual(1, items[0].sell_in)
+        self.assertEqual(1, items[0].quality)
 
     def test_general_item_expired(self):
         items = [Item("foo", 0, 2)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
-        self.assertEquals(-1, items[0].sell_in)
-        self.assertEquals(0, items[0].quality)
+        self.assertEqual(-1, items[0].sell_in)
+        self.assertEqual(0, items[0].quality)
 
     def test_update_quality_sets_zero_quality_when_expired_item_zero_quality_passed(self):
         items = [Item("foo", 0, 0)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
-        self.assertEquals(0, items[0].quality)
+        self.assertEqual(0, items[0].quality)
         
     @parameterized.expand([
         [1, 0, 1, 2],
@@ -35,14 +35,14 @@ class GildedRoseTest(unittest.TestCase):
         items = [Item("Aged Brie", sell_in_init, quality_init)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
-        self.assertEquals(sell_in_expected, items[0].sell_in)
-        self.assertEquals(quality_expected, items[0].quality)
+        self.assertEqual(sell_in_expected, items[0].sell_in)
+        self.assertEqual(quality_expected, items[0].quality)
 
     def test_general_item_quality_under_fifty(self):
         items = [Item("Aged Brie", 1, 50)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
-        self.assertEquals(50, items[0].quality)
+        self.assertEqual(50, items[0].quality)
 
     @parameterized.expand([
         [-2, 80],
@@ -54,8 +54,8 @@ class GildedRoseTest(unittest.TestCase):
         items = [Item("Sulfuras, Hand of Ragnaros", sell_in_init, quality_init)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
-        self.assertEquals(sell_in_init, items[0].sell_in)
-        self.assertEquals(quality_init, items[0].quality)
+        self.assertEqual(sell_in_init, items[0].sell_in)
+        self.assertEqual(quality_init, items[0].quality)
     
   
     @parameterized.expand([
@@ -73,8 +73,8 @@ class GildedRoseTest(unittest.TestCase):
         items = [Item("Backstage passes to a TAFKAL80ETC concert", sell_in_init, quality_init)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
-        self.assertEquals(sell_in_expected, items[0].sell_in)
-        self.assertEquals(quality_expected, items[0].quality)
+        self.assertEqual(sell_in_expected, items[0].sell_in)
+        self.assertEqual(quality_expected, items[0].quality)
 
     # # "Conjured" items degrade in Quality twice as fast as normal items
     @unittest.skip('Not yet implemented')
@@ -82,7 +82,7 @@ class GildedRoseTest(unittest.TestCase):
         items = [Item("Conjured", 1, 50)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
-        self.assertEquals(50, items[0].quality)
+        self.assertEqual(50, items[0].quality)
 
     @parameterized.expand([
         [2, 1, 3, 1],
@@ -96,8 +96,8 @@ class GildedRoseTest(unittest.TestCase):
         items = [Item("Conjured", sell_in_init, quality_init)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
-        self.assertEquals(sell_in_expected, items[0].sell_in)
-        self.assertEquals(quality_expected, items[0].quality)
+        self.assertEqual(sell_in_expected, items[0].sell_in)
+        self.assertEqual(quality_expected, items[0].quality)
 
 
 if __name__ == '__main__':
