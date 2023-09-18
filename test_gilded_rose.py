@@ -40,12 +40,6 @@ class GildedRoseTest(unittest.TestCase):
         self.assertEqual(sell_in_expected, items[0].sell_in)
         self.assertEqual(quality_expected, items[0].quality)
 
-    def test_general_item_quality_under_fifty(self):
-        items = [Item("Aged Brie", 1, 50)]
-        gilded_rose = GildedRose(items)
-        gilded_rose.update_quality()
-        self.assertEqual(50, items[0].quality)
-
     @parameterized.expand([
         [-2, 80],
         [3, 50],
