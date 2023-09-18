@@ -31,7 +31,7 @@ class GildedRoseTest(unittest.TestCase):
         [0, -1, 1, 3],
         [-1, -2, 1, 3],
     ])
-    def test_sequence(self, sell_in_init, sell_in_expected, quality_init, quality_expected):
+    def test_aged_brie_quality_rise(self, sell_in_init, sell_in_expected, quality_init, quality_expected):
         items = [Item("Aged Brie", sell_in_init, quality_init)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
@@ -75,6 +75,29 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose.update_quality()
         self.assertEquals(sell_in_expected, items[0].sell_in)
         self.assertEquals(quality_expected, items[0].quality)
+
+    # "Conjured" items degrade in Quality twice as fast as normal items
+    # Not yet implemented
+    def test_conjured_item_quality_under_fifty(self):
+        items = [Item("Conjured", 1, 50)]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        self.assertEquals(50, items[0].quality)
+
+    @parameterized.expand([
+        [2, 1, 3, 1],
+        [1, 0, 1, 0],
+        [0, -1, 1, 0],
+        [0, -1, 5, 1],
+        [-1, -2, 5, 1],
+    ])
+    def test_conjured_qaulity_decrease(self, sell_in_init, sell_in_expected, quality_init, quality_expected):
+        items = [Item("Conjured", sell_in_init, quality_init)]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        self.assertEquals(sell_in_expected, items[0].sell_in)
+        self.assertEquals(quality_expected, items[0].quality)
+
 
 if __name__ == '__main__':
     unittest.main()
