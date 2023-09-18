@@ -10,15 +10,17 @@ class GildedRose(object):
             new_quality = item.quality
             new_sell_in = item.sell_in
 
-            if item.name == "Aged Brie" or item.name == "Backstage passes to a TAFKAL80ETC concert":
+            if item.name == "Aged Brie":
                 if new_quality < 50:
                     new_quality = new_quality + 1
-                    if item.name == "Backstage passes to a TAFKAL80ETC concert":
-                        if new_quality < 50:
-                            if new_sell_in < 11:
-                                new_quality = new_quality + 1
-                            if new_sell_in < 6:
-                                new_quality = new_quality + 1
+            elif item.name == "Backstage passes to a TAFKAL80ETC concert":
+                if new_quality < 50:
+                    new_quality = new_quality + 1
+                    if new_quality < 50:
+                        if new_sell_in < 11:
+                            new_quality = new_quality + 1
+                        if new_sell_in < 6:
+                            new_quality = new_quality + 1
             else:
                 if new_quality > 0:
                     if item.name != "Sulfuras, Hand of Ragnaros":
