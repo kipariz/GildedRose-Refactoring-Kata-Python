@@ -56,21 +56,25 @@ class Item:
         return "%s, %s, %s" % (self.name, self.sell_in, self.quality)
 
 
-class ItemBase(Item):
+class BaseItem(Item):
     def __init__(self, name, sell_in, quality, quality_change=-1, quality_degradation_factor=2):
         Item.__init__(self, name, sell_in, quality)
         self.quality_change = quality_change
         self.quality_degradation_factor = quality_degradation_factor
-
-    def update_item(self):
-        self.update_quality()
-        self.update_sell_in()
 
     def update_quality(self):
         if self.sell_in > 0:
             self.quality += self.quality_change
         else:
             self.quality += self.quality_change * self.quality_degradation_factor
+        
+        if self.quality > 50:
+            self.quality = 50
 
     def update_sell_in(self):
         self.sell_in -= 1
+
+    def update_item(self):
+        self.update_quality()
+        self.update_sell_in()
+
