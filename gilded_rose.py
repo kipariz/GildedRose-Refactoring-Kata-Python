@@ -79,3 +79,24 @@ class BaseItem(Item):
         self.update_quality()
         self.update_sell_in()
 
+
+class BackstagePasses(BaseItem):
+    def __init__(self, name, sell_in, quality, quality_change=1):
+        BaseItem.__init__(self, name, sell_in, quality)
+        self.quality_change = quality_change
+
+    def update_quality(self):
+
+        if self.sell_in <= 0:
+            self.quality = 0
+
+        else:
+            if self.sell_in <= 5:
+                self.quality_change = 3
+            elif self.sell_in <= 10:
+                self.quality_change = 2
+                
+            self.quality += self.quality_change
+            
+            if self.quality > self.quality_limit:
+                self.quality = self.quality_limit
