@@ -57,17 +57,18 @@ class Item:
 
 
 class BaseItem(Item):
-    def __init__(self, name, sell_in, quality, quality_change=-1, quality_degradation_factor=2, quality_limit=50):
+    def __init__(self, name, sell_in, quality, quality_change=-1, quality_change_modifier=1, quality_degradation_below_zero=2, quality_limit=50):
         Item.__init__(self, name, sell_in, quality)
         self.quality_change = quality_change
-        self.quality_degradation_factor = quality_degradation_factor
+        self.quality_change_modifier = quality_change_modifier
+        self.quality_degradation_below_zero = quality_degradation_below_zero
         self.quality_limit = quality_limit
 
     def update_quality(self):
         if self.sell_in > 0:
-            self.quality += self.quality_change
+            self.quality += self.quality_change * self.quality_change_modifier
         else:
-            self.quality += self.quality_change * self.quality_degradation_factor
+            self.quality += self.quality_change * self.quality_change_modifier * self.quality_degradation_below_zero
         
         if self.quality > self.quality_limit:
             self.quality = self.quality_limit

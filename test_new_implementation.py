@@ -38,7 +38,7 @@ class GildedRoseTest(unittest.TestCase):
         [10, 9, 3, 4],
         [1, 0, 1, 2]
     ])
-    def test_aged_brie_quality_rise_sell_above_zero(self, sell_in_init, sell_in_expected, quality_init, quality_expected):
+    def test_aged_brie_quality_rise_sell_in_above_zero(self, sell_in_init, sell_in_expected, quality_init, quality_expected):
         item = BaseItem("Aged Brie", sell_in_init, quality_init, quality_change=1)
         item.update_item()
         self.assertEqual(sell_in_expected, item.sell_in)
@@ -48,7 +48,7 @@ class GildedRoseTest(unittest.TestCase):
         [0, -1, 1, 3],
         [-1, -2, 1, 3]
     ])
-    def test_aged_brie_quality_rise_sell_belove_zero(self, sell_in_init, sell_in_expected, quality_init, quality_expected):
+    def test_aged_brie_quality_rise_sell_in_below_zero(self, sell_in_init, sell_in_expected, quality_init, quality_expected):
         item = BaseItem("Aged Brie", sell_in_init, quality_init, quality_change=1)
         item.update_item()
         self.assertEqual(sell_in_expected, item.sell_in)
@@ -148,6 +148,47 @@ class GildedRoseTest(unittest.TestCase):
         self.assertEqual(sell_in_expected, item.sell_in)
         self.assertEqual(quality_expected, item.quality)
 
+    
+    @parameterized.expand([        
+        [3, 2, 53, 50],
+        [4, 3, 100, 50],
+        [5, 4, 50, 48],
+        [5, 4, 52, 50],
+        [5, 4, 53, 50],
+        
+        [-1, -2, 55, 50],
+        [-1, -2, 54, 50],
+        [-1, -2, 53, 49]
+    ])
+    def test_conjured_item_quality_rise_above_max_value(self, sell_in_init, sell_in_expected, quality_init, quality_expected):
+        item = BaseItem("Conjured", sell_in_init, quality_init, quality_change_modifier=2)
+        item.update_item()
+        self.assertEqual(sell_in_expected, item.sell_in)
+        self.assertEqual(quality_expected, item.quality)
+    
+
+    @parameterized.expand([
+        [10, 9, 3, 1],
+        [1, 0, 1, -1]
+    ])
+    def test_conjured_item_quality_decrease_sell_in_above_zero(self, sell_in_init, sell_in_expected, quality_init, quality_expected):
+        item = BaseItem("Conjured", sell_in_init, quality_init, quality_change_modifier=2)
+        item.update_item()
+        self.assertEqual(sell_in_expected, item.sell_in)
+        self.assertEqual(quality_expected, item.quality)
+
+    @parameterized.expand([
+        [0, -1, 1, -3],
+        [-1, -2, 1, -3],
+        [-10, -11, -2, -6],
+    ])
+    def test_conjured_item_quality_decrease_sell_in_below_zero(self, sell_in_init, sell_in_expected, quality_init, quality_expected):
+        item = BaseItem("Conjured", sell_in_init, quality_init, quality_change_modifier=2)
+        item.update_item()
+        self.assertEqual(sell_in_expected, item.sell_in)
+        self.assertEqual(quality_expected, item.quality)
+
+ 
 
 if __name__ == '__main__':
     unittest.main()
