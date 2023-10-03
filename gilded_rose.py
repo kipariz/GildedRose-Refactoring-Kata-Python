@@ -100,3 +100,12 @@ class BackstagePasses(BaseItem):
             
             if self.quality > self.quality_limit:
                 self.quality = self.quality_limit
+
+
+class Sulfuras(BaseItem):
+    def __init__(self, name, sell_in):
+        BaseItem.__init__(self, name, sell_in, quality=80, quality_limit=80)
+
+    def update_quality(self):
+        pass
+

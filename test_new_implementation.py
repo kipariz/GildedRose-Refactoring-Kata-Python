@@ -1,6 +1,6 @@
 import unittest
 from parameterized import parameterized
-from gilded_rose import BaseItem, BackstagePasses
+from gilded_rose import BaseItem, BackstagePasses, Sulfuras
 
 
 class GildedRoseTest(unittest.TestCase):
@@ -132,6 +132,21 @@ class GildedRoseTest(unittest.TestCase):
         g_item.update_item()
         self.assertEqual(sell_in_expected, g_item.sell_in)
         self.assertEqual(quality_expected, g_item.quality)
+
+
+    @parameterized.expand([
+        [-2, -3],
+        [3, 2],
+        [0, -1],
+        [-100, -101]
+    ])
+    def test_sulfuras(self, sell_in_init, sell_in_expected):
+        quality_expected = 80
+        
+        item = Sulfuras("Sulfuras", sell_in_init)
+        item.update_item()
+        self.assertEqual(sell_in_expected, item.sell_in)
+        self.assertEqual(quality_expected, item.quality)
 
 
 if __name__ == '__main__':
